@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=GFS+Didot&family=Kode+Mono:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=GFS+Didot&family=Kode+Mono:wght@400..700&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+#Header {
+    background-color: #EFEFEF;
+}
+
+.libre-bodoni {
+    font-family: "Libre Bodoni", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.gfs-didot-regular {
+    font-family: "GFS Didot", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.background {
+    background-image: url('../SCR/fondo_index.png'); 
+    background-size: cover; /* Esto ajusta la imagen al tamaño de la pantalla */
+    background-repeat: no-repeat; /* Esto evita que la imagen se repita */
+    background-position: center; /* Esto centra la imagen en la pantalla */
+}
+
+.custom-file-upload {
+    border: 2px solid #ccc;
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    opacity: 0.7; /* Ajusta la opacidad aquí */
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.custom-file-upload:hover {
+    opacity: 1; /* Cambia la opacidad al pasar el mouse sobre el botón */
+}
+
+#file-upload {
+    position: absolute;
+    left: -9999px; /* Coloca el input fuera del área visible */
+}
+
+.custom-file-upload-label {
+    margin-bottom: 5px; /* Agrega un pequeño espacio debajo del label */
+}
