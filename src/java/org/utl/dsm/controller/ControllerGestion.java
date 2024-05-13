@@ -4,6 +4,10 @@
  */
 package org.utl.dsm.controller;
 
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,13 +21,15 @@ import org.utl.dsm.model.ModeloGestion;
  * @author Caval
  */
 public class ControllerGestion {
-    public List<ModeloGestion> getAll() {
-        //Se crea una lista llamada personas que almacenar� objetos de tipo Persona.
-        List<ModeloGestion> personas = new ArrayList<>();
-        // Se define una consulta SQL que selecciona todos los registros de la tabla "persona".
-        String query = "SELECT * FROM producto";
 
-        // Se establece una conexion con la base de datos.
+    public List<ModeloGestion> getAll() {
+        List<ModeloGestion> alumnos = new ArrayList<>();
+        System.out.println("hola");
+        String query = "SELECT a.*, g.nombre_grupo, m.nombre_materia "
+                + "FROM Alumnos a "
+                + "JOIN Grupos g ON a.id_grupo = g.id_grupo "
+                + "JOIN Materias m ON g.id_materia = m.id_materia";
+
         try {
             ConexionSQL connMysql = new ConexionSQL();
             Connection conn = connMysql.open();
@@ -31,21 +37,19 @@ public class ControllerGestion {
             ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("idProducto");
-                String nombre = rs.getString("nombre");
-                String nombreGenerico = rs.getString("nombreGenerico");
-                String formaFarmaceutica = rs.getString("formaFarmaceutica");
-                String unidadMedida = rs.getString("unidadMedida");
-                String presentacion = rs.getString("presentacion");
-                String principalIndicacion = rs.getString("principalIndicacion");
-                String contraindicaciones = rs.getString("contraindicaciones");
-                String concentracion = rs.getString("concentracion");
-                int unidadesEnvase = rs.getInt("unidadesEnvase");
-                float precioCompra = rs.getFloat("precioCompra");
-                float precioVenta = rs.getFloat("precioVenta");
-                int estatus = rs.getInt("estatus");
-                ModeloGestion producto = new ModeloGestion(id, nombre, nombreGenerico, formaFarmaceutica, unidadMedida, presentacion, principalIndicacion, contraindicaciones, concentracion, unidadesEnvase, precioCompra, precioVenta, estatus);
-                personas.add(producto);
+                ModeloGestion alumno = new ModeloGestion();
+
+                int id_alumno = rs.getInt("id_alumno");
+                String Nocontrol = rs.getString("Nocontrol");
+                String ApellidoP = rs.getString("ApellidoP");
+                String ApellidoM = rs.getString("ApellidoM");
+                String Nombre = rs.getString("Nombre");
+                String Email = rs.getString("Email");
+                String Telefono = rs.getString("Telefono");
+                String Nombre_grupo = rs.getString("Nombre_grupo");
+                String Nombre_materia = rs.getString("Nombre_materia");
+                ModeloGestion persona = new ModeloGestion(id_alumno, Nocontrol, ApellidoP, ApellidoM, Nombre, Email, Telefono, Nombre_grupo, Nombre_materia);
+                alumnos.add(persona);
             }
             rs.close();
             pstm.close();
@@ -53,7 +57,6 @@ public class ControllerGestion {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // Finalmente, se devuelve la lista personas que contiene todos los registros de la tabla "persona".
-        return personas;
+        return alumnos;
     }
 }

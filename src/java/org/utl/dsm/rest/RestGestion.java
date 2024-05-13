@@ -14,11 +14,9 @@ import java.util.List;
 import org.utl.dsm.controller.ControllerGestion;
 import org.utl.dsm.model.ModeloGestion;
 
-/**
- *
- * @author Caval
- */
+@Path("gestion")
 public class RestGestion {
+
     @Path("getall")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -36,5 +34,16 @@ public class RestGestion {
         }
         return Response.status(Response.Status.OK).entity(out).build();
 
+    }
+
+    @Path("saludar")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response saludar() {
+
+        String out = """
+                     {"result":"Hola Mundo"}
+                 """;
+        return Response.status(Response.Status.OK).entity(out).build();
     }
 }
