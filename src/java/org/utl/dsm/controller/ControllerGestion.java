@@ -25,10 +25,24 @@ public class ControllerGestion {
     public List<ModeloGestion> getAll() {
         List<ModeloGestion> alumnos = new ArrayList<>();
         System.out.println("hola");
-        String query = "SELECT a.*, g.nombre_grupo, m.nombre_materia "
-                + "FROM Alumnos a "
-                + "JOIN Grupos g ON a.id_grupo = g.id_grupo "
-                + "JOIN Materias m ON g.id_materia = m.id_materia";
+        String query = "SELECT "
+                + "a.idAlumno, "
+                + "a.nombreAlumno, "
+                + "a.apellidoPaterno, "
+                + "a.apellidoMaterno, "
+                + "a.noControl, "
+                + "a.email, "
+                + "a.telefono, "
+                + "g.nombreGrupo, "
+                + "GROUP_CONCAT(m.nombreMateria SEPARATOR ', ') AS materias, "
+                + "GROUP_CONCAT(c.calificacion SEPARATOR ', ') AS calificaciones, "
+                + "GROUP_CONCAT(c.promedio SEPARATOR ', ') AS promedios "
+                + "FROM Boleta b "
+                + "JOIN Alumno a ON b.idAlumno = a.idAlumno "
+                + "JOIN Calificacion c ON b.idCalificacion = c.idCalificacion "
+                + "JOIN Materia m ON b.idMateria = m.idMateria "
+                + "JOIN Grupo g ON a.idGrupo = g.idGrupo "
+                + "GROUP BY a.idAlumno";
 
         try {
             ConexionSQL connMysql = new ConexionSQL();
@@ -37,18 +51,19 @@ public class ControllerGestion {
             ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
-                ModeloGestion alumno = new ModeloGestion();
-
-                int id_alumno = rs.getInt("id_alumno");
-                String Nocontrol = rs.getString("Nocontrol");
-                String ApellidoP = rs.getString("ApellidoP");
-                String ApellidoM = rs.getString("ApellidoM");
-                String Nombre = rs.getString("Nombre");
-                String Email = rs.getString("Email");
-                String Telefono = rs.getString("Telefono");
-                String Nombre_grupo = rs.getString("Nombre_grupo");
-                String Nombre_materia = rs.getString("Nombre_materia");
-                ModeloGestion persona = new ModeloGestion(id_alumno, Nocontrol, ApellidoP, ApellidoM, Nombre, Email, Telefono, Nombre_grupo, Nombre_materia);
+                int idAlumno = rs.getInt("idAlumno");
+                String Nombre = rs.getString("nombreAlumno");
+                String ApellidoP = rs.getString("apellidoPaterno");
+                String ApellidoM = rs.getString("apellidoMaterno");
+                String Nocontrol = rs.getString("noControl");
+                String Email = rs.getString("email");
+                String Telefono = rs.getString("telefono");
+                String nombreGrupo = rs.getString("nombreGrupo");
+                double Calificacion = rs.getDouble("calificaciones");
+                double promedio = rs.getDouble("promedios");
+                String nombreMateria = rs.getString("materias");
+                ModeloGestion persona = new ModeloGestion(idAlumno, Nombre, ApellidoP, ApellidoM, Nocontrol, Email, Telefono, nombreGrupo, Calificacion, promedio, nombreMateria);
+                System.out.println(idAlumno + Nocontrol + ApellidoP + ApellidoM + Nombre + Email + Telefono + nombreGrupo + nombreMateria);
                 alumnos.add(persona);
             }
             rs.close();
