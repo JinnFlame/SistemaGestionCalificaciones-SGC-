@@ -3,13 +3,20 @@ function updateFileName(input) {
     document.getElementById('file-name').innerText = fileName;
 }
 
-import tablecsv from "./tablecsv";
+import tablecsv from "./tablecsv.js";
 
 const tableRoot = document.querySelector("#csvRoot");
-const tablecsv = new tablecsv(tableRoot);
+const csvFileInput = document.querySelector("#csvFileInput")
+const Tablecsv = new tablecsv(tableRoot);
 
-tablecsv.update([
-    [4500, "dom", 35],
-    [800, "dcode", 67],
-    [4500, "dom", 35]
-])
+csvFileInput.addEventListener("change", e => {
+    console.log(csvFileInput.files[0])
+    Papa.parse(csvFileInput.files[0], {
+        delimiter: ",",
+        skipEmptyLines: true,
+        complete: results => {
+            console.log(results);
+            Tablecsv.update(results.data.slice(1), results.data[0])
+        }
+    })
+})
