@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/mendo/Documents/SistemaGestionCalificaciones(SGC)/web/Modulos/Gestion/GestionCalifAlumnos.html</file>
-            <file>file:/C:/Users/mendo/Documents/SistemaGestionCalificaciones(SGC)/src/java/org/utl/dsm/controller/ControllerGestion.java</file>
-            <file>file:/C:/Users/mendo/Documents/SistemaGestionCalificaciones(SGC)/src/java/org/utl/dsm/model/ModeloGestion.java</file>
-            <file>file:/C:/Users/mendo/Documents/SistemaGestionCalificaciones(SGC)/web/Modulos/Gestion/JSGestion.js</file>
-            <file>file:/C:/Users/mendo/Documents/SistemaGestionCalificaciones(SGC)/src/java/org/utl/dsm/rest/RestGestion.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
