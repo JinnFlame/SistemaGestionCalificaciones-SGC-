@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.utl.dsm.rest;
 
 import com.google.gson.Gson;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
@@ -20,11 +18,11 @@ public class RestGestion {
     @Path("getall")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
+    public Response getAll(@QueryParam("idEspecialidad") int idEspecialidad, @QueryParam("semestre") int semestre) {
         String out = "";
         try {
             ControllerGestion cp = new ControllerGestion();
-            List<ModeloGestion> producto = cp.getAll();
+            List<ModeloGestion> producto = cp.getAll(idEspecialidad, semestre);
             Gson gs = new Gson();
             out = gs.toJson(producto);
 
@@ -33,17 +31,31 @@ public class RestGestion {
 
         }
         return Response.status(Response.Status.OK).entity(out).build();
-
     }
 
     @Path("saludar")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response saludar() {
-
         String out = """
-                     {"result":"Hola Mundo"}
-                 """;
+                    {"result":"Hola Mundo"}
+                """;
+        return Response.status(Response.Status.OK).entity(out).build();
+    }
+
+    @Path("getmateriascalificaciones/{idAlumno}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMateriasCalificaciones(@PathParam("idAlumno") int idAlumno) {
+        String out = "";
+        try {
+            ControllerGestion cp = new ControllerGestion();
+            List<ModeloGestion> materiasCalificaciones = cp.getMateriasCalificaciones(idAlumno);
+            Gson gs = new Gson();
+            out = gs.toJson(materiasCalificaciones);
+        } catch (Exception ex) {
+            out = "{\"error\":\"" + ex.toString() + "\"}";
+        }
         return Response.status(Response.Status.OK).entity(out).build();
     }
 }
